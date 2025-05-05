@@ -1,0 +1,91 @@
+package com.mycompany.capitulo3;
+ 
+/**
+ *
+ * @author caaco
+ */
+public class Capitulo3 {
+ 
+    public static void main(String[] args) {
+        private int[] numbers = new int[10]; // Almacena los números ingresados
+private int totalCount = 0;          // Cantidad de números almacenados
+ 
+// Agrega un nuevo número al arreglo
+public void addNumber(int number) {
+    if (totalCount < numbers.length) {
+        numbers[totalCount++] = number;
+    } else {
+        System.out.println("Límite de números alcanzado.");
+    }
+}
+ 
+// Retorna la suma de los números almacenados
+public int getSumOfNumbers() {
+    int sum = 0;
+    for (int index = 0; index < totalCount; index++) {
+        sum += numbers[index];
+    }
+    return sum;
+}
+ 
+// Calcula el promedio de los números ingresados
+public double calculateAverage() {
+    if (totalCount == 0) {
+        return 0;
+    }
+    return (double) getSumOfNumbers() / totalCount;
+}
+ 
+    }
+ 
+import java.util.Scanner;
+ 
+public class DailyExpenseTracker {
+ 
+    // Arreglo para almacenar hasta 10 gastos
+    private double[] expenses = new double[10];
+    private int expenseCount = 0;
+ 
+    // Agrega un nuevo gasto al arreglo
+    public void addExpense(double amount) {
+        if (expenseCount < expenses.length) {
+            expenses[expenseCount++] = amount;
+        } else {
+            System.out.println("¡Límite de gastos alcanzado (10)!");
+        }
+    }
+ 
+    // Calcula la suma total de los gastos registrados
+    public double calculateTotal() {
+        double total = 0;
+        for (int i = 0; i < expenseCount; i++) {
+            total += expenses[i];
+        }
+        return total;
+    }
+ 
+    // Calcula el promedio de los gastos registrados
+    public double calculateAverage() {
+        return expenseCount == 0 ? 0 : calculateTotal() / expenseCount;
+    }
+ 
+    // Método principal para ejecutar el programa
+    public static void main(String[] args) {
+        DailyExpenseTracker tracker = new DailyExpenseTracker();
+        Scanner scanner = new Scanner(System.in);
+ 
+        System.out.print("¿Cuántos gastos desea registrar? (máx 10): ");
+        int totalExpenses = scanner.nextInt();
+ 
+        for (int i = 0; i < totalExpenses && i < 10; i++) {
+            System.out.print("Ingrese el monto del gasto #" + (i + 1) + ": ");
+            double amount = scanner.nextDouble();
+            tracker.addExpense(amount);
+        }
+ 
+        System.out.printf("💰 Gasto total: %.2f\n", tracker.calculateTotal());
+        System.out.printf("📊 Promedio de gastos: %.2f\n", tracker.calculateAverage());
+ 
+        scanner.close();
+    }
+} 
