@@ -1,0 +1,60 @@
+package com.mycompany.p1tarea1acostacorina;
+ 
+import java.util.Scanner;
+import java.io.*;
+ 
+public class P1Tarea1AcostaCorina {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("¿Deseas registrar (r) o leer (l) estudiantes?");
+        char opcion = input.next().charAt(0);
+        input.nextLine(); // Limpiar buffer
+ 
+        if (opcion == 'r') {
+            try {
+                FileWriter fw = new FileWriter("estudiantes.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+ 
+                System.out.println("Nombre: ");
+                String nombre = input.nextLine();
+ 
+                int edad;
+                do {
+                    System.out.println("Edad (debe ser positiva): ");
+                    edad = Integer.parseInt(input.nextLine());
+                    if (edad < 0) {
+                        System.out.println("La edad no puede ser negativa.");
+                    }
+                } while (edad < 0);
+ 
+                System.out.println("Carrera: ");
+                String carrera = input.nextLine();
+ 
+                bw.write(nombre + "," + edad + "," + carrera);
+                bw.newLine();
+                bw.close();
+                System.out.println("Estudiante registrado correctamente.");
+ 
+            } catch (IOException e) {
+                System.out.println("Error al escribir en el archivo.");
+                e.printStackTrace();
+            }
+        } else if (opcion == 'l') {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader("estudiantes.txt"));
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    System.out.println(linea);
+                }
+                br.close();
+            } catch (IOException e) {
+                System.out.println("Error al leer el archivo.");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Opción no válida.");
+        }
+ 
+        input.close();
+    }
+}
