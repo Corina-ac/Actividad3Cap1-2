@@ -1,0 +1,50 @@
+import java.util.Scanner;
+ 
+public class NumberStats {
+ 
+    private static final int MAX_NUMBERS = 10; // Constante nombrada correctamente
+    private int[] numbers = new int[MAX_NUMBERS]; 
+    private int totalNumbersEntered = 0;
+ 
+    // Agrega un número al arreglo
+    public void addNumber(int number) {
+        if (totalNumbersEntered < MAX_NUMBERS) {
+            numbers[totalNumbersEntered++] = number;
+        } else {
+            System.out.println("No se pueden ingresar más de " + MAX_NUMBERS + " números.");
+        }
+    }
+ 
+    // Calcula la suma de los números
+    public int calculateSum() {
+        int sum = 0;
+        for (int index = 0; index < totalNumbersEntered; index++) {
+            sum += numbers[index];
+        }
+        return sum;
+    }
+ 
+    // Calcula el promedio de los números ingresados
+    public double calculateAverage() {
+        if (totalNumbersEntered == 0) return 0;
+        return (double) calculateSum() / totalNumbersEntered;
+    }
+ 
+    public static void main(String[] args) {
+        NumberStats stats = new NumberStats();
+        Scanner scanner = new Scanner(System.in);
+ 
+        System.out.print("¿Cuántos números ingresará? ");
+        int count = scanner.nextInt();
+ 
+        for (int i = 0; i < count && i < MAX_NUMBERS; i++) {
+            System.out.print("Número: ");
+            int input = scanner.nextInt();
+            stats.addNumber(input);
+        }
+ 
+        System.out.println("Suma = " + stats.calculateSum());
+        System.out.println("Promedio = " + stats.calculateAverage());
+        scanner.close();
+    }
+}
